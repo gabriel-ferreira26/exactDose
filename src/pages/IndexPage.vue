@@ -164,6 +164,6 @@ const defineMaxTubes = () => {
   else if (index == 3) return '8 Tubetes'
   else if (index == 4) return '6 Tubetes'
   else if (index == 5) return '10 Tubetes'
-  else return ' taa retornando aqui'
+  else return ''
 }
 </script>
