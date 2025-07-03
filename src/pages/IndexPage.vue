@@ -149,12 +149,12 @@ const defineDosePerTube = () => {
 }
 
 const defineQuantityTubes = (maxDose, microgramsPerTube) => {
-  return maxDose / microgramsPerTube
+  return (maxDose / microgramsPerTube).toFixed(2)
 }
 
 const defineQuantityTubesTwo = (maxDoseKG, dosePerTube) => {
   let tubes = (weight.value * maxDoseKG) / dosePerTube;
-  return !isNaN(tubes) ? tubes : '';
+  return !isNaN(tubes) ? tubes.toFixed(2) : '';
 }
 
 const defineMaxTubes = () => {
