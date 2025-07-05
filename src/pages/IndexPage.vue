@@ -77,28 +77,28 @@
             <td>KILOS</td>
             <td>{{weight}}</td>
             <td>MICROG/TUBETE</td>
-            <td>{{defineMicrogramsPerTube()}}</td>
+            <td>{{defineMicrogramsPerTube}}</td>
           </tr>
           <tr>
             <td>DOSE MÁX/KG</td>
-            <td>{{defineMaxDoseKG()}}</td>
+            <td>{{defineMaxDoseKG}}</td>
             <td>DOSE MÁX.</td>
-            <td>{{defineMaxDose()}}</td>
+            <td>{{defineMaxDose}}</td>
           </tr>
           <tr>
             <td>DOSE POR TUBETE</td>
-            <td>{{defineDosePerTube()}}</td>
+            <td>{{defineDosePerTube}}</td>
             <td>Nº DE TUBETES</td>
-            <td>{{defineQuantityTubes(defineMaxDose(), defineMicrogramsPerTube())}}</td>
+            <td>{{defineQuantityTubes(defineMaxDose, defineMicrogramsPerTube)}}</td>
           </tr>
           <tr>
             <td>Nº DE TUBETES</td>
-            <td>{{defineQuantityTubesTwo(defineMaxDoseKG(), defineDosePerTube())}}</td>
+            <td>{{defineQuantityTubesTwo(defineMaxDoseKG, defineDosePerTube)}}</td>
             <td colspan="2"></td>
           </tr>
           <tr>
             <td>Nº MÁX. TUBETES</td>
-            <td>{{defineMaxTubes()}}</td>
+            <td>{{defineMaxTubes}}</td>
             <td colspan="2"></td>
           </tr>
           <tr>
@@ -113,7 +113,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const anesthetic = ref(null)
 const options = ['Lido + Vaso', 'Mepivacaina', 'Prilocaina', 'Articaina', 'Bupivacaina']
@@ -122,31 +122,35 @@ const concentration = ref(1)
 const weight = ref(null)
 
 /* Valor dos anestesicos */
-const defineMicrogramsPerTube = () => {
+const defineMicrogramsPerTube = computed(() => {
   if (concentration.value == 1) return 36
   else if (concentration.value == 2) return 18
   else if (concentration.value == 3) return 9
-}
+  return 0;
+})
 
-const defineMaxDoseKG = () => {
+const defineMaxDoseKG = computed(() => {
   if (concentration.value == 1) return 7
   else if (concentration.value == 2) return 6.6
   else if (concentration.value == 3) return 8
-}
+  return 0;
+})
 
-const defineMaxDose = () => {
+const defineMaxDose = computed(() => {
   if (asa.value <= 2) return 198
   else if (asa.value > 2) return 40
-}
+  return 0;
+})
 
-const defineDosePerTube = () => {
+const defineDosePerTube = computed(() => {
   let index = options.indexOf(anesthetic.value)
   if (index == 1) return 36
   else if (index == 2) return 36
   else if (index == 3) return 72
   else if (index == 4) return 72
   else if (index == 5) return 9
-}
+  return 0;
+})
 
 const defineQuantityTubes = (maxDose, microgramsPerTube) => {
   return (maxDose / microgramsPerTube).toFixed(2)
@@ -157,7 +161,7 @@ const defineQuantityTubesTwo = (maxDoseKG, dosePerTube) => {
   return !isNaN(tubes) ? tubes.toFixed(2) : '';
 }
 
-const defineMaxTubes = () => {
+const defineMaxTubes = computed(() => {
   let index = options.indexOf(anesthetic.value)
   if (index == 1) return '13 Tubetes'
   else if (index == 2) return '11 Tubetes'
@@ -165,5 +169,5 @@ const defineMaxTubes = () => {
   else if (index == 4) return '6 Tubetes'
   else if (index == 5) return '10 Tubetes'
   else return ''
-}
+})
 </script>
